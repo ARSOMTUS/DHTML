@@ -57,6 +57,39 @@ and open the template in the editor.
                 return that;
             };
             
+            var bouncySprite = function (params) {
+                var x = params.x,
+                    y = params.y,
+                    xDir = params.xDir,
+                    yDir = params.yDir,
+                    maxX = params.maxX,
+                    maxY = maxY,
+                    
+                    animIndex = 0,
+                    
+                    that = DHTMLSprite(params);
+            
+                    that.moveAndDraw = function () {
+                      x += xDir;
+                      y += yDir;
+                    
+                    animIndex += xDir > 0 ? 1 : -1;
+                    animIndex %= 5;
+                    animIndex += animIndex < 0 ? 5 : 0;
+                    
+                    if ((xDir < 0 && x < 0) || (xDir > 0 && x >= maxX)){
+                        xDir = -xDir;
+                    }
+                    if ((yDir < 0 && y < 0) || (yDir > 0 && y >= maxY)){
+                        yDir = -yDir;
+                    }
+                    
+                    that.changeImage(animIndex);
+                    that.draw(x, y);
+                    };
+                    return that;
+            };
+            
             $(document).ready(function(){
                 
                 var params = {
