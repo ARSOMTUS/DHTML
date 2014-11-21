@@ -9,8 +9,8 @@ and open the template in the editor.
 */
 
 #zombieLand {
-    width: 480px;
-    height: 320px;
-    background-color: #669933;
+    background-image: url(../img/level.gif);
+    width: 640px;
+    height: 240px;
     position: relative;
 }

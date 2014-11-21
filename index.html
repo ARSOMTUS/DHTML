@@ -64,18 +64,29 @@ and open the template in the editor.
                         animIndex = 0,
                         that = DHTMLSprite(params);
                 
+                    alert('x = ' + x);
+                    alert('y = ' + y);
+                    alert('xDir = ' + xDir);
+                    alert('yDir = ' + yDir);
+                    alert('animIndex ' + animIndex);
+
+                
                     that.moveAndDraw = function() {                       
                         x += xDir;
                         y += yDir;
                         animIndex += xDir > 0 ? 1 : -1;
-                        animIndex %= 5;
+                        animIndex %= 6;
                         animIndex += animIndex < 0 ? 5: 0;
+
                         if ((xDir < 0 && x < 0) || (xDir > 0 && x >= maxX)) {
                                         xDir = -xDir;
                         }
                         if ((yDir < 0 && y < 0) || (yDir > 0 && y >= maxY)) {
                                         yDir = -yDir;
                         }
+                        alert("animIndex += xDir > 0 ? 1 : -1; " + animIndex);
+                        alert("animIndex %= 4; " + animIndex);
+                        alert("animIndex += animIndex < 0 ? 5: 0;" + animIndex);
                         that.changeImage(animIndex);
                         that.draw(x, y);
                     };
@@ -91,14 +102,14 @@ and open the template in the editor.
                             images: 'img/zombies.png',
                             imagesWidth: 278,
                             width: 46.33333333333333,
-                            height: 52,
+                            height: 50,
                             $drawTarget: $drawTarget,
                             x: Math.random() * ($drawTarget.width() - 46.33333333333333),
-                            y: Math.random() * ($drawTarget.height() - 52),
+                            y: Math.random() * ($drawTarget.height() - 50),
                             xDir: Math.random() * 4 - 2,
                             yDir: Math.random() * 4 - 2,
                             maxX: $drawTarget.width() - 46.33333333333333,
-                            maxY: $drawTarget.height() - 52
+                            maxY: $drawTarget.height() - 50
                         }));
                     }
                     var moveAll = function() {											
@@ -106,13 +117,13 @@ and open the template in the editor.
                         for (var i = 0; i < len; i++) {
                             bouncys[i].moveAndDraw();
                         }                      					
-                        setTimeout(moveAll, 10);
+                        setTimeout(moveAll, 200);
                     };
                     moveAll();
                 };
 								
                 $(document).ready(function() {
-                    bouncyBoss(30, $('#zombieLand'));
+                    bouncyBoss(1, $('#zombieLand'));
                 });
            
         </script>
