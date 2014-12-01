@@ -59,17 +59,35 @@ and open the template in the editor.
                         y = params.y,
                         xDir = params.xDir,
                         maxX = params.maxX,
+                        startIndex = params.startIndex,
                         that = DHTMLSprite(params);
                 
-                    that.moveAndDraw = function(animIndex) {
+                    that.moveAndDraw = function() {
                         x += xDir;
 
                         if ((xDir < 0 && x < 0) || (xDir > 0 && x >= maxX)) {
                             that.destroy();
                         }
-
-                        that.changeImage(4);
+                        
+                        that.changeImage(startIndex);
                         that.draw(x, y);
+                        
+//                        switch(startIndex) {
+//                            case 4: 
+//                                startIndex += 6;
+//                                break
+//                            case 10: 
+//                                startIndex += 6;
+//                                break
+//                            case 16: 
+//                                startIndex = 4;
+//                                break
+//                        }
+                        if(startIndex < 16){
+                            startIndex += 6;
+                        }else{
+                            startIndex = 4;
+                        }
                     };
                     return that;
                 };
@@ -87,9 +105,9 @@ and open the template in the editor.
                             $drawTarget: $drawTarget,
                             x: 582,
                             y: 158,
-                            xDir: -1,
+                            xDir: -4,
                             maxX: $drawTarget.width() - 46.33333333333333,
-                            arrayOfIndex: [4, 10, 16]
+                            startIndex: 4
                         }));
                     }
                     var moveAll = function() {											
@@ -98,13 +116,17 @@ and open the template in the editor.
                         for (var i = 0; i < len; i++) {
                             bouncys[i].moveAndDraw();
                         }                      					
-                        setTimeout(moveAll, 200);
+                        setTimeout(moveAll, 180);
                     };
                     moveAll();
                 };
 								
                 $(document).ready(function() {
-                    bouncyBoss(1, $('#zombieLand'));
+                    var createZombie = function() {
+                        bouncyBoss(1, $('#zombieLand'));
+                        setTimeout(createZombie, 3000);
+                    };
+                    createZombie();
                 });
            
         </script>
