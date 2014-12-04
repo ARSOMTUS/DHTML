@@ -12,6 +12,46 @@ and open the template in the editor.
         <link type="text/css" rel="stylesheet" href="css/style.css">
         <script type="text/javascript" src="js/libs/jquery/jquery.js"></script>
         <script>
+            
+            var timeInfo = function (goalFPS) {
+                var oldTime, paused = true, iterCount = 0, totalFPS = 0;
+                
+                return  {
+                    getInfo: function() {
+                        
+                        if(paused === true) {
+                            paused = false;
+                            oldTime = +new Date();
+                            
+                           return {
+                                elapsed: 0,
+                                coeff: 0,
+                                FPS: 0,
+                                averageFPS: 0
+                            };
+                        }
+                        
+                        var newTime = +new Date();
+                        var elapsed = newTime - oldTime;
+                        oldTime = newTime;
+                        var FPS = 1000/elapsed;
+                            iterCount ++;
+                            totalFPS += FPS;
+                            
+                            return {
+                                elapsed: elapsed,
+                                coeff: goalFPS / FPS,
+                                FPS: FPS,
+                                averageFPS: totalFPS / iterCount
+                            };
+                    },
+                    pause: function() {
+                        paused = true;
+                    }
+                };
+            };
+            
+            
             var DHTMLSprite = function (params) {
                 
                 var width = params.width,
