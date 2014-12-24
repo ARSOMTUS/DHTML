@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>The Walking Dead</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link type="text/css" rel="stylesheet" href="css/style.css">
@@ -102,8 +102,8 @@ and open the template in the editor.
                         startIndex = params.startIndex,
                         that = DHTMLSprite(params);
                 
-                    that.moveAndDraw = function() {
-                        x += xDir;
+                    that.moveAndDraw = function(tCoeff) {
+                        x += xDir * tCoeff;
 
                         if ((xDir < 0 && x < 0) || (xDir > 0 && x >= maxX)) {
                             that.destroy();
@@ -134,7 +134,8 @@ and open the template in the editor.
 
                 var bouncyBoss = function(numBouncy, $drawTarget) {
                     
-                    var bouncys = [];
+                    var bouncys = [],
+                        timer = timeInfo(8);    
                    
                     for (var i = 0; i < numBouncy; i++) {
                         bouncys.push(bouncySprite({
@@ -150,11 +151,12 @@ and open the template in the editor.
                             startIndex: 4
                         }));
                     }
-                    var moveAll = function() {											
+                    var moveAll = function() {
+                        var timeData = timer.getInfo();
                         var len = bouncys.length;
                         
                         for (var i = 0; i < len; i++) {
-                            bouncys[i].moveAndDraw();
+                            bouncys[i].moveAndDraw(timeData.coeff);
                         }                      					
                         setTimeout(moveAll, 180);
                     };
